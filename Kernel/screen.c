@@ -80,9 +80,9 @@ void enter(){
 
 void scrollScreenUp(){
     // cada pixel lo copio en la de arriba TODO optimizar
-    for ( int i= 0; i < screenHeight ; i++ ){ // y (altura)
+    for ( int i= 0; i < screenHeight - CHAR_HEIGHT ; i++ ){ // y (altura)
         for( int j=0; j < screenWidth ; j++ ){ // x (ancho)
-            copyPixel( j,i,j,i-CHAR_HEIGHT ); // copio al de arriba
+            copyPixel( j,i+CHAR_HEIGHT,j,i ); // copio al de arriba
         }
     }
     // imprimo en la ult linea espacios
@@ -100,8 +100,8 @@ void scrollScreenUp(){
 void clearScreen(){
 
     //imprimo en backgroundColor en toda la pantalla
-    for ( int i= 0; i < screenHeight; i++ ){
-        for( int j=0; j < screenWidth; j++ ){
+    for ( int i= 0; i < screenHeight +6; i++ ){
+        for( int j=0; j < screenWidth ; j++ ){
             putPixel( j,i,COLOR_BACKGROUND_DEFAULT );
         }
     }

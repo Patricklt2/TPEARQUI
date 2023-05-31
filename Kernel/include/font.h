@@ -3,9 +3,14 @@
 #ifndef __FONT_H__
 #define __FONT_H__
 
-#define CHAR_WIDTH 8
-#define CHAR_HEIGHT 16
+#include <stdint.h>
 
+#define CHAR_WIDTH 6
+#define CHAR_HEIGHT 10
+
+// (c) 2009, 2010 Lutz Sammer, License: AGPLv3
+
+// defines to have human readable font files
 #define ________ 0x00
 #define _______X 0x01
 #define ______X_ 0x02
@@ -263,6 +268,7 @@
 #define XXXXXXX_ 0xFE
 #define XXXXXXXX 0xFF
 
-unsigned char * charBitmap(int c);
+// conseguir la formacion en pixeles del char
+uint8_t * charBitmap(uint8_t character);
 
 #endif

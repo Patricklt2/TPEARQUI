@@ -122,8 +122,8 @@ void draw_char( uint32_t x, uint32_t y, char character, uint32_t fontColor,
 
 	for(int i = 0; i < CHAR_HEIGHT; i++){
 		for(int j = 0; j < CHAR_WIDTH; j++){
-			//veo si tengo que imprimir el pixel o no
-			pixIsPresent = (1 << (CHAR_WIDTH - 1 - j)) & font_char[i];
+			//veo si tengo que imprimir el pixel o no, +2 para que imprima bien con el correcto decalaje de bits
+			pixIsPresent = (1 << (CHAR_WIDTH + 2 - j)) & font_char[i];
 			if ( pixIsPresent )
 				putPixel( auxx, auxy, fontColor );
 			else
