@@ -45,7 +45,7 @@ void zeroDivisionException(uint64_t * rip){
     // Debo hacer que continué la ejecución. Porque es un Fault Exception.
     // Primero debo modificar los registros, que causaron el problema.
     cleanActualRegisters();
-    
+
     *rip = 0x400000;
     return;
 }
@@ -54,7 +54,7 @@ void invalidOperationException(uint64_t * rip){
     printErrorStr("Exception: Invalid OpCode");
     enter();
 
-    cleanActualRegisters();     
+    cleanActualRegisters();
     *rip = 0x400000;
     return;
 }

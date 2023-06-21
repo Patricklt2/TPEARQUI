@@ -10,7 +10,7 @@ all: stdlib $(MODULE)
 
 $(MODULE): $(SOURCES) others.a
 	$(GCC) $(GCCFLAGS) -T sampleCodeModule.ld _loader.c $(SOURCES) others.a ./libc/libc.a -o ../$(MODULE) -I./libc/include
-
+	$(GCC) $(GCCFLAGS) -I./libc/include -T sampleCodeModule.ld -Wl,--oformat=elf64-x86-64 _loader.c $(OBJECTS_ASM) $(SOURCES)  others.a ./libc/libc.a -o ../0000-sampleCodeModule.elf
 %.o: %.asm
 	$(ASM) $(ASMFLAGS) $< -o $@
 

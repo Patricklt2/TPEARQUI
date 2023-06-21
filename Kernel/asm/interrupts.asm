@@ -87,6 +87,8 @@ section .text
 %endmacro
 
 %macro irqHandlerMaster 1
+    push rbp
+    mov rbp, rsp
     pushState
     
     mov rdi, %1                 ; Paso el parametro
@@ -96,6 +98,8 @@ section .text
     out 20h, al
 
     popState
+    mov rsp, rbp
+    pop rbp
     iretq
 %endmacro
 

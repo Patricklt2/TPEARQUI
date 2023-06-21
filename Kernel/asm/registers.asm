@@ -18,7 +18,7 @@ GLOBAL getCurrentR8
 section .text
 ; ------ MACRO -------
 %macro getCurrent 1
-	mov rax, [%1]
+	mov rax, %1
 	ret
 %endmacro
 
