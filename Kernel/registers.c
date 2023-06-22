@@ -1,6 +1,7 @@
 #include <registers.h>
 //ILLEGAL
-static uint64_t regs[16] = {0};
+static uint64_t registers[17] = {0};
+extern uint64_t regs[3];
 
 void showRegisterStatus(){
     enter();
@@ -10,39 +11,41 @@ void showRegisterStatus(){
 }
 
 void saveRegisterStatus(){
-    regs[0] = getCurrentRAX();
-    regs[1] = getCurrentRBX();
-    regs[2] = getCurrentRCX();
-    regs[3] = getCurrentRDX();
-    regs[4] = getCurrentRBP();
-    regs[5] = getCurrentRSI();
-    regs[6] = getCurrentRDI();
-    regs[7] = getCurrentR15();
-    regs[8] = getCurrentR14();
-    regs[9] = getCurrentR13();
-    regs[10] = getCurrentR12();
-    regs[11] = getCurrentR11();
-    regs[12] = getCurrentR10();
-    regs[13] = getCurrentR9();
-    regs[14] = getCurrentR8();
-    regs[15] = getCurrentRSP();
+    registers[0] = getCurrentRAX();
+    registers[1] = getCurrentRBX();
+    registers[2] = getCurrentRCX();
+    registers[3] = getCurrentRDX();
+    registers[4] = regs[0];
+    registers[5] = getCurrentRSI();
+    registers[6] = getCurrentRDI();
+    registers[7] = getCurrentR15();
+    registers[8] = getCurrentR14();
+    registers[9] = getCurrentR13();
+    registers[10] = getCurrentR12();
+    registers[11] = getCurrentR11();
+    registers[12] = getCurrentR10();
+    registers[13] = getCurrentR9();
+    registers[14] = getCurrentR8();
+    registers[15] = regs[2];
+    registers[16] = regs[1];
 }
 
 void printRegisterStatus(){
-    printRegister("A: ", regs[0]);
-    printRegister("B: ", regs[1]);
-    printRegister("C: ", regs[2]);
-    printRegister("D: ", regs[3]);
-    printRegister("BP: ", regs[4]);
-    printRegister("SI: ", regs[5]);
-    printRegister("SP: ", regs[15]);
-    printRegister("DI: ", regs[6]);
-    printRegister("15: ", regs[7]);
-    printRegister("14: ", regs[8]);
-    printRegister("13: ", regs[9]);
-    printRegister("12: ", regs[10]);
-    printRegister("11: ", regs[11]);
-    printRegister("10: ", regs[12]);
-    printRegister("9: ", regs[13]);
-    printRegister("8: ", regs[14]);
+    printRegister("A: ", registers[0]);
+    printRegister("B: ", registers[1]);
+    printRegister("C: ", registers[2]);
+    printRegister("D: ", registers[3]);
+    printRegister("BP: ", registers[4]);
+    printRegister("SI: ", registers[5]);
+    printRegister("SP: ", registers[15]);
+    printRegister("DI: ", registers[6]);
+    printRegister("RIP: ", registers[16]);
+    printRegister("15: ", registers[7]);
+    printRegister("14: ", registers[8]);
+    printRegister("13: ", registers[9]);
+    printRegister("12: ", registers[10]);
+    printRegister("11: ", registers[11]);
+    printRegister("10: ", registers[12]);
+    printRegister("9: ", registers[13]);
+    printRegister("8: ", registers[14]);
 }

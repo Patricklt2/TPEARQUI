@@ -24,6 +24,7 @@
     ;
 
 ; ------ GLOBALS  SECTION ------ ;
+GLOBAL regs
 GLOBAL _cli
 GLOBAL _sti
 GLOBAL picMasterMask
@@ -86,6 +87,25 @@ section .text
 	pop rax
 %endmacro
 
+%macro saveRegisters 0
+    push rbp
+    mov rbp, rsp
+
+    pushState
+
+    mov rax, [ rbp ]                ; RBP
+    mov qword [ regs ], rax
+    mov rax, [ rbp + 8 ]            ; RIP
+    mov qword [ regs + 8 ], rax
+    mov rax, [ rbp + 32 ]           ; ORIGINAL RSP
+    mov qword [ regs + 16 ], rax
+
+    popState
+
+    mov rsp, rbp
+    pop rbp
+%endmacro
+
 %macro irqHandlerMaster 1
     push rbp
     mov rbp, rsp
@@ -104,6 +124,7 @@ section .text
 %endmacro
 
 %macro exceptionHandlerMaster 1
+
     push rbp
     mov rbp, rsp                ; Armo el stackFrame
 
@@ -162,6 +183,7 @@ _irq00Handler:
     irqHandlerMaster 0          ; TIMER TICK
 
 _irq01Handler:
+    saveRegisters
     irqHandlerMaster 1          ; KEYBOARD
 
 _irq02Handler:                  ; SYSCALL
@@ -192,9 +214,11 @@ _irq02Handler:                  ; SYSCALL
 ; ------ STARTS EXCPETIONS ------ ; 
 
 _exception00Handler:
+    saveRegisters
     exceptionHandlerMaster 0    ; Division by Zero Exception
 
 _exception01Handler:
+    saveRegisters
     exceptionHandlerMaster 1    ; Not valid OpCode
 
 _exception02Handler:
@@ -209,3 +233,4 @@ haltcpu:
 
 SECTION .bss
 	aux resq 1
+	regs resq 3
